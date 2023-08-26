@@ -1,18 +1,13 @@
 <?php 
 add_action('wp','mmwea_cart_page_front_setting',10);
-
 function mmwea_cart_page_front_setting(){
     if(is_cart()){
-
         $general_settings_options   = get_option('mmwea_general_settings_options');
         $cart_page_options        = get_option('mmwea_product_cart_page_options');
-
         $whatsapp_number = $hide_btn_des = $new_tab = $display_btn = $button_text = $btn_position_hook = $msg_body = $message_body = $hide_checkout_btn = $body_header = $body_footer = $enable_user_role = $user_role_option = $login_user_role = "";
-
         $user_role_wise = 1;
         
         if(isset($general_settings_options) && !empty($general_settings_options)){
-    
             if (isset($general_settings_options['whatsapp_number']))		$whatsapp_number    = $general_settings_options['whatsapp_number'];
             if (isset($general_settings_options['hide_wa_btn_desktop']))    $hide_btn_des    	= $general_settings_options['hide_wa_btn_desktop'];
             if (isset($general_settings_options['open_link_new_tab']))		$new_tab    	    = $general_settings_options['open_link_new_tab'];
@@ -31,7 +26,6 @@ function mmwea_cart_page_front_setting(){
             if (isset($cart_page_options['body_footer']))		        $body_footer    	    = $cart_page_options['body_footer'];
         }
         
-
         if($enable_user_role == "on"){
             if($user_role_option == "logged-in" && is_user_logged_in()){               
                 if(isset($login_user_role) && !empty($login_user_role)){
@@ -76,22 +70,21 @@ function mmwea_cart_page_front_setting(){
                     $product_name = $_product->get_title();
                     $product_price = get_post_meta($values['product_id'], '_price', true);
                     $product_quantity   =  $values['quantity'];
-                    // $product_img_url = get_the_post_thumbnail_url($values['product_id']);
                     $product_url    = get_permalink($values['product_id']);
     
                     $old_val =  array("{{product_name}}", "{{product_price}}", "{{product_quantity}}", "{{product_url}}");
                     $new_val =  array($product_name, $product_price, $product_quantity, $product_url);
+                    $updated_val = str_replace($old_val, $new_val, $message_body);
     
-                    $msg_data[] = str_replace($old_val, $new_val, $message_body);
-                    // $msg_data[] = "*----------------------------------------------*";
+                    $msg_data[] = urlencode($updated_val);
                 }
             }
 
             $msg_data = implode("<br />", $msg_data);
 
             $body_header = str_replace('<br />', '%0D%0A', nl2br($body_header));
-            $body_footer = str_replace('<br />', '%0D%0A', nl2br($body_footer));            
-            $msg_body = str_replace('<br />', '%0D%0A', nl2br($msg_data));
+            $body_footer = str_replace('<br />', '%0D%0A', nl2br($body_footer));
+            $msg_body = str_replace('<br />', '%0D%0A--------------%0D%0A', nl2br($msg_data));
 
             $msg_body = $body_header.'%0D%0A%0D%0A'.$msg_body.'%0D%0A%0D%0A'.$body_footer;
 

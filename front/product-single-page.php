@@ -1,12 +1,7 @@
 <?php 
-
 add_action('wp','mmwea_single_product_page_front',10);
-
 function mmwea_single_product_page_front(){
-
     if ( is_singular('product') ) {
-
-
         $general_settings_options   = get_option('mmwea_general_settings_options');
         $single_page_options        = get_option('mmwea_product_single_page_options');
     
@@ -64,8 +59,6 @@ function mmwea_single_product_page_front(){
         }else{
             $user_role_wise = 0;
         }
-    
-
 
         if($display_btn == "on" && $user_role_wise == 0 && !empty($whatsapp_number)){
     
@@ -99,7 +92,6 @@ function mmwea_single_product_page_front(){
     
             $btn_class  = $hide_btn_des == 'on' ? 'mmwea-for-mob' : '';
             $btn_target = $new_tab == 'on' ? 'target="_blank"' : '';    
-    
 
             $product_name   = $product->get_name();
             $product_type   = $product->get_type();
@@ -153,11 +145,9 @@ function mmwea_single_product_page_front(){
                 $i++;
             }
 
-            $demo_send_data =  implode("", $msg_data);
+            $msg_body =  implode("", $msg_data);
 
-            $msg_body = str_replace('<br />', '%0D%0A', nl2br($demo_send_data));
-
-            $button_url = "https://wa.me/".$whatsapp_number."/?text=".$msg_body;
+            $button_url = "https://wa.me/".$whatsapp_number."/?text=".urlencode($msg_body);
             
             if($hide_cart_button == "on"){
  
@@ -213,9 +203,6 @@ function mmwea_single_product_page_front(){
 
                 },10);
 			}
-
-
         }
     }
-    
 }

@@ -1,6 +1,5 @@
 <?php 
 add_action('wp','mmwea_order_page_front_setting',10);
-
 function mmwea_order_page_front_setting(){
     if(is_checkout()){
 
@@ -28,7 +27,6 @@ function mmwea_order_page_front_setting(){
             if (isset($order_page_options['message_body']))		            $message_body    	    = $order_page_options['message_body'];
         }
 
-
         if($enable_user_role == "on"){
             if($user_role_option == "logged-in" && is_user_logged_in()){               
                 if(isset($login_user_role) && !empty($login_user_role)){
@@ -54,7 +52,6 @@ function mmwea_order_page_front_setting(){
             $user_role_wise = 0;
         }
     
-    
         if($display_btn == "on" && $user_role_wise == 0){
 
             $btn_class  = $hide_btn_des == 'on' ? 'mmwea-for-mob' : '';
@@ -72,7 +69,6 @@ function mmwea_order_page_front_setting(){
 
 
             add_action('woocommerce_thankyou', function($order_id ) use ($wa_btn_html,$message_body) {
-
                 $first_name = $last_name = $full_name = $company_name = $cus_address = $cus_email = $cus_phone = $product_name = $product_price = $product_quantity = $product_total = $shipping_first_name = $shipping_last_name = $shipping_full_name = $shipping_company_name = $shipping_address = "";
                 
                 $order = wc_get_order( $order_id ); 
@@ -87,7 +83,6 @@ function mmwea_order_page_front_setting(){
                 $cus_address    = $order->get_billing_address_1()." ".$order->get_billing_address_2()." ".$order->get_billing_city()." ".$order->get_billing_postcode()." ".$order->get_billing_state()." ".$order->get_billing_country();
                 $cus_email      = $order->get_billing_email();
                 $cus_phone      = $order->get_billing_phone();
-
 
                 $cus_address = str_replace('<br/>',' ',$cus_address);
 
@@ -107,13 +102,9 @@ function mmwea_order_page_front_setting(){
                 $i = 0;
                 $replce_val = array("{{shipping_first_name}}", "{{shipping_last_name}}", "{{shipping_full_name}}", "{{shipping_company_name}}", "{{shipping_address}}");
 
-
                 foreach ($msg_data as $key => $msg_value) {
-
                     foreach ($replce_val as $key => $value) {
-
                         if (strpos($msg_value, $value)) {
-
                             if ($value == "{{shipping_first_name}}" && isset($shipping_first_name)  && !empty($shipping_first_name)) {
 
                                 $msg_data[$i] = str_replace($value, $shipping_first_name, $msg_value);
@@ -137,7 +128,6 @@ function mmwea_order_page_front_setting(){
                     }
                     $i++;
                 }
-
                 $message_body =  implode("", $msg_data);
 
                 $product_info = array();
@@ -158,7 +148,6 @@ function mmwea_order_page_front_setting(){
                 }
                 $product_info_data = implode("<br />", $product_info);
 
-
                 $order_date = wc_format_datetime($order->get_date_created());
                 $order_total = $currency_symbol."".$order->get_total();
                 $payment_method = $order->get_payment_method_title();
@@ -167,7 +156,6 @@ function mmwea_order_page_front_setting(){
                 $order_new_val = array($order_id,$order_date,$order_total,$payment_method);
                 $order_info_data = str_replace($order_old_val,$order_new_val,$order_msg_data);
 
-                
                 $old_product_val =  array("{{product_info}}","{{order_info}}");
                 $new_product_val =  array($product_info_data,$order_info_data);
 
@@ -175,13 +163,10 @@ function mmwea_order_page_front_setting(){
 
                 $msg_body = str_replace('<br />', '%0D%0A', nl2br($msg_data));
 
-                $wa_btn_html = str_replace('{{msg_body}}',$msg_body,$wa_btn_html);
+                $wa_btn_html = str_replace('{{msg_body}}',urlencode($msg_body),$wa_btn_html);
 
-                _e($wa_btn_html,'mobile-enquiry-and-alert-message-for-woocommerce');       
-
+                _e($wa_btn_html,'mobile-enquiry-and-alert-message-for-woocommerce');
             });
-
         }
     }
-
 }

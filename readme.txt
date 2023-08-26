@@ -4,9 +4,9 @@ Donate link: https://paypal.me/rvadhel
 Tags: wc whatsapp enquiry, order enquiry, wc whatsapp support, woocommerce whatsapp enquiry, whatsapp quick chat
 Requires PHP: 5.2.4
 Requires at least: 3.0.1
-Tested up to: 6.2.2
-WC tested up to: 7.7.0
-Stable tag: 1.3
+Tested up to: 6.3
+WC tested up to: 7.9.0
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,9 @@ After Plugin Active go to Woocommerce-> Mobile Enquiry and Alert Message for Woo
 11.Whatsapp message body for my account
 
 == Changelog ==
+= 1.4 =
+  Fixed product title with special character
+
 = 1.3 =
   Tested up to wp version 6.2.2
 

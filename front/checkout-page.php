@@ -1,9 +1,7 @@
 <?php 
 add_action('wp','mmwea_checkout_page_front_setting',10);
-
 function mmwea_checkout_page_front_setting(){
     if(is_checkout()){
-
         $general_settings_options   = get_option('mmwea_general_settings_options');
         $checkout_page_options        = get_option('mmwea_product_checkout_page_options');
 
@@ -55,7 +53,6 @@ function mmwea_checkout_page_front_setting(){
             $user_role_wise = 0;
         }
     
-    
         if($display_btn == "on" && $user_role_wise == 0){
 
             $btn_class  = $hide_btn_des == 'on' ? 'mmwea-for-mob' : '';
@@ -65,7 +62,6 @@ function mmwea_checkout_page_front_setting(){
 
             global $woocommerce;
             $items = $woocommerce->cart->get_cart();
-            // print_r($woocommerce->cart->get_total());
 
             foreach ($items as $item => $values) {
                 $_product =  wc_get_product($values['data']->get_id());
@@ -77,16 +73,16 @@ function mmwea_checkout_page_front_setting(){
 
                 $old_val =  array("{{product_name}}", "{{product_price}}", "{{product_quantity}}", "{{product_url}}");
                 $new_val =  array($product_name, $product_price, $product_quantity, $product_url);
+                $updated_val = str_replace($old_val, $new_val, $message_body);
 
-                $msg_data[] = str_replace($old_val, $new_val, $message_body);
-                // $msg_data[] = "*----------------------------------------------*";
+                $msg_data[] = urlencode($updated_val);
             }
 
             $msg_data = implode("<br />", $msg_data);
 
             $body_header = str_replace('<br />', '%0D%0A', nl2br($body_header));
             $body_footer = str_replace('<br />', '%0D%0A', nl2br($body_footer));            
-            $msg_body = str_replace('<br />', '%0D%0A', nl2br($msg_data));
+            $msg_body = str_replace('<br />', '%0D%0A--------------%0D%0A', nl2br($msg_data));
 
             $msg_body = $body_header.'%0D%0A%0D%0A'.$msg_body.'%0D%0A%0D%0A'.$body_footer;
 
@@ -101,9 +97,6 @@ function mmwea_checkout_page_front_setting(){
             add_action($btn_position_hook, function() use ($wa_btn_html) {
                 _e($wa_btn_html,'mobile-enquiry-and-alert-message-for-woocommerce');                
             });
-
         }
-
-
     }
 }

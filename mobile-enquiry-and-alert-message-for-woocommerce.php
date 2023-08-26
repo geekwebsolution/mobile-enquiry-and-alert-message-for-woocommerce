@@ -1,24 +1,13 @@
 <?php
-
 /*
-
 Plugin Name: Mobile Enquiry and Alert Message for Woocommerce
-
 Description: Mobile Enquiry and Alert Message for Woocommerce is used to get a enquriy from user directly to your whatsapp for product, cart and order detail etc!
-
 Author: Geek Code Lab
-
-Version: 1.3
-
-WC tested up to: 7.7.0
-
+Version: 1.4
+WC tested up to: 7.9.0
 Author URI: https://geekcodelab.com/
-
 Text Domain : mobile-enquiry-and-alert-message-for-woocommerce
-
 */
-
-
 if (!defined('ABSPATH')) exit;
 
 if (!defined("MMWEA_PLUGIN_DIR_PATH"))
@@ -29,7 +18,7 @@ if (!defined("MMWEA_PLUGIN_URL"))
     
     define("MMWEA_PLUGIN_URL", plugins_url() . '/' . basename(dirname(__FILE__)));
     
-define("mmwea_version", '1.3');
+define("mmwea_version", '1.4');
 
 register_activation_hook( __FILE__, 'mmwea_plugin_active_woocommerce_shop_page_customizer' );
 function mmwea_plugin_active_woocommerce_shop_page_customizer(){
@@ -37,25 +26,18 @@ function mmwea_plugin_active_woocommerce_shop_page_customizer(){
 	if ( !class_exists( 'WooCommerce' ) ) {
 	   die('Plugin NOT activated: ' . $error);
 	}
-	// if (is_plugin_active( 'shop-page-customizer-for-woo/shop-page-customizer-for-woo.php' ) ) {		
-	// 	deactivate_plugins('shop-page-customizer-for-woo/shop-page-customizer-for-woo.php');
-   	// } 
-
-
 }
 
 require_once( MMWEA_PLUGIN_DIR_PATH .'admin/options.php');
 
+require_once( MMWEA_PLUGIN_DIR_PATH .'front/product-single-page.php');
+require_once( MMWEA_PLUGIN_DIR_PATH .'front/cart-page.php');
+require_once( MMWEA_PLUGIN_DIR_PATH .'front/checkout-page.php');
+require_once( MMWEA_PLUGIN_DIR_PATH .'front/order-page.php');
+require_once( MMWEA_PLUGIN_DIR_PATH .'front/account-page.php');
 
-	require_once( MMWEA_PLUGIN_DIR_PATH .'front/product-single-page.php');
-	require_once( MMWEA_PLUGIN_DIR_PATH .'front/cart-page.php');
-	require_once( MMWEA_PLUGIN_DIR_PATH .'front/checkout-page.php');
-	require_once( MMWEA_PLUGIN_DIR_PATH .'front/order-page.php');
-	require_once( MMWEA_PLUGIN_DIR_PATH .'front/account-page.php');
-	
-	require_once( MMWEA_PLUGIN_DIR_PATH .'/customizer/customizer-library/customizer-library.php');
-	require_once( MMWEA_PLUGIN_DIR_PATH .'/customizer/styles.php');
-
+require_once( MMWEA_PLUGIN_DIR_PATH .'/customizer/customizer-library/customizer-library.php');
+require_once( MMWEA_PLUGIN_DIR_PATH .'/customizer/styles.php');
 
 function mmwea_plugin_add_settings_link($links){
 
@@ -69,13 +51,9 @@ function mmwea_plugin_add_settings_link($links){
 $plugin = plugin_basename(__FILE__);
 add_filter("plugin_action_links_$plugin", 'mmwea_plugin_add_settings_link');
 
-
 add_action('admin_print_styles', 'mmwea_admin_style');
-
 function mmwea_admin_style(){
-
 	if (is_admin()) {
-	
 		wp_enqueue_style('mmwea-admin-style', MMWEA_PLUGIN_URL . '/assets/css/admin-style.css' , '',mmwea_version);
 		wp_enqueue_style('mmwea-select2-style', MMWEA_PLUGIN_URL . '/assets/css/select2.min.css' , '',mmwea_version);
 		wp_enqueue_style('wp-color-picker');
@@ -85,10 +63,8 @@ function mmwea_admin_style(){
 	}
 }
 
-
 add_action('wp_enqueue_scripts', 'mmwea_include_front_script');
 function mmwea_include_front_script(){
-
     wp_enqueue_style("mmwea_front_style", MMWEA_PLUGIN_URL . "/assets/css/front-style.css", '',mmwea_version);
     wp_enqueue_script('mmwea_donation_script', MMWEA_PLUGIN_URL.'/assets/js/front-script.js', array('jquery'), mmwea_version);
 }
@@ -102,27 +78,16 @@ function mmwea_get_product_category($term_id,$select_category_id){
 	
 	$sub_terms = get_terms('product_cat', $args);
 	if (isset($sub_terms) && !empty($sub_terms) ) {
-
-	
 		foreach ( $sub_terms as $sub_taxonomy ) {
-
-
-			if (in_array($sub_taxonomy->term_id, $select_category_id)){				
-				?>
+			if (in_array($sub_taxonomy->term_id, $select_category_id)){	?>
                     <option value="<?php echo esc_attr($sub_taxonomy->term_id); ?>" selected="selected" ><?php esc_html_e($sub_taxonomy->name) ?></option>
-                <?php	
-			}else{
-				
-				?>
+                <?php
+			}else{ ?>
                     <option value="<?php echo esc_attr($sub_taxonomy->term_id); ?>" ><?php esc_html_e($sub_taxonomy->name) ?></option>
                 <?php
-
 			}
-                    
-            
 			mmwea_get_product_category($sub_taxonomy->term_id,$select_category_id);
 		}
-		
 	}
 }
 
