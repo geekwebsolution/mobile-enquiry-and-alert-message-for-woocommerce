@@ -3,8 +3,8 @@
 Plugin Name: Mobile Enquiry and Alert Message for Woocommerce
 Description: Mobile Enquiry and Alert Message for Woocommerce is used to get a enquriy from user directly to your whatsapp for product, cart and order detail etc!
 Author: Geek Code Lab
-Version: 1.4
-WC tested up to: 7.9.0
+Version: 1.5
+WC tested up to: 8.2.2
 Author URI: https://geekcodelab.com/
 Text Domain : mobile-enquiry-and-alert-message-for-woocommerce
 */
@@ -18,7 +18,7 @@ if (!defined("MMWEA_PLUGIN_URL"))
     
     define("MMWEA_PLUGIN_URL", plugins_url() . '/' . basename(dirname(__FILE__)));
     
-define("mmwea_version", '1.4');
+define("mmwea_version", '1.5');
 
 register_activation_hook( __FILE__, 'mmwea_plugin_active_woocommerce_shop_page_customizer' );
 function mmwea_plugin_active_woocommerce_shop_page_customizer(){
@@ -88,6 +88,16 @@ function mmwea_get_product_category($term_id,$select_category_id){
 			}
 			mmwea_get_product_category($sub_taxonomy->term_id,$select_category_id);
 		}
+	}
+}
+
+/**
+ * Added HPOS support for woocommerce
+ */
+add_action( 'before_woocommerce_init', 'mmwea_before_woocommerce_init' );
+function mmwea_before_woocommerce_init() {
+    if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 	}
 }
 
