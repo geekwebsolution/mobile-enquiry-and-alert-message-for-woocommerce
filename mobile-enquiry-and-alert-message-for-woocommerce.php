@@ -4,7 +4,7 @@ Plugin Name: Mobile Enquiry and Alert Message for Woocommerce
 Description: Mobile Enquiry and Alert Message for Woocommerce is used to get a enquriy from user directly to your whatsapp for product, cart and order detail etc!
 Author: Geek Code Lab
 Version: 1.5
-WC tested up to: 8.2.2
+WC tested up to: 8.3.0
 Author URI: https://geekcodelab.com/
 Text Domain : mobile-enquiry-and-alert-message-for-woocommerce
 */
@@ -20,13 +20,34 @@ if (!defined("MMWEA_PLUGIN_URL"))
     
 define("mmwea_version", '1.5');
 
-register_activation_hook( __FILE__, 'mmwea_plugin_active_woocommerce_shop_page_customizer' );
-function mmwea_plugin_active_woocommerce_shop_page_customizer(){
-	$error	=	'required <b>woocommerce</b> plugin.';	
-	if ( !class_exists( 'WooCommerce' ) ) {
-	   die('Plugin NOT activated: ' . $error);
+if ( ! function_exists( 'mmwea_install_woocommerce_admin_notice' ) ) {
+	/**
+	 * Trigger an admin notice if WooCommerce is not installed.
+	 */
+	function mmwea_install_woocommerce_admin_notice() {
+		?>
+		<div class="error">
+			<p>
+				<?php
+				// translators: %s is the plugin name.
+				echo esc_html( sprintf( __( '%s is enabled but not effective. It requires WooCommerce in order to work.', 'mobile-enquiry-and-alert-message-for-woocommerce' ), 'Mobile Enquiry and Alert Message for Woocommerce' ) );
+				?>
+			</p>
+		</div>
+		<?php
 	}
 }
+
+
+function mmwea_woocommerce_constructor() {
+    // Check WooCommerce installation
+	if ( ! function_exists( 'WC' ) ) {
+		add_action( 'admin_notices', 'mmwea_install_woocommerce_admin_notice' );
+		return;
+	}
+
+}
+add_action( 'plugins_loaded', 'mmwea_woocommerce_constructor' );
 
 require_once( MMWEA_PLUGIN_DIR_PATH .'admin/options.php');
 
@@ -100,11 +121,3 @@ function mmwea_before_woocommerce_init() {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 	}
 }
-
-// add_filter('woocommerce_get_availability', 'availability_filter_func');
-// function availability_filter_func($availability){
-
-// 	$availability['availability'] = str_ireplace('Out of stock', 'Coming Soon!', $availability['availability']);
-// 	return $availability;
-
-// }
