@@ -1,14 +1,10 @@
 <?php 
 if (!class_exists('mmwea_account_page_settings')) {
-    
     $mmwea_product_account_page_options = array();
     $mmwea_product_account_page_options = get_option('mmwea_product_account_page_options');
     class mmwea_account_page_settings{
 
-
-        function general_setting_customize_callback(){
-          
-            ?>
+        function general_setting_customize_callback() { ?>
             <form action="options.php?tab=mmwea-account-page-setting" method="post">
                 <?php  
                 settings_fields('mmwea-account-page-option-group');   
@@ -19,15 +15,9 @@ if (!class_exists('mmwea_account_page_settings')) {
                     do_settings_sections('account-page-setting-page'); 
                     ?>
                 </div>
-
-       
-
                 <?php
-               
                 submit_button('Save Settings');
                 ?>
-
-
             </form>
             <?php
         }
@@ -67,18 +57,6 @@ if (!class_exists('mmwea_account_page_settings')) {
                     'description'   => 'Change "Connect WhatsApp" button text.'
                 ]
             );
-
-            // add_settings_field(
-            //     'btn-position-account-page',
-            //     __('Button Position', 'mobile-message-for-woocommerce-enquiries-and-alerts'),
-            //     array($this, 'basic_setting_btn_position_field'),
-            //     'account-page-setting-page',
-            //     'account-page-setting-section',
-            //     [
-            //         'label_for'     => 'btn_position_hook',
-            //         'description'   => 'demo'
-            //     ]
-            // );
 
             add_settings_field(
                 'whatsapp-message-body-account-page',
@@ -178,26 +156,19 @@ Thank you for giving us your valuable time.';
         public function sanitize_settings($input){
             $new_input = array();
 
-                if (isset($input['display_on_account_page']) && !empty($input['display_on_account_page'])) {
-                    $new_input['display_on_account_page'] = sanitize_text_field($input['display_on_account_page']);
-                }
-    
-                if (isset($input['enquiry_btn_text']) && !empty($input['enquiry_btn_text'])) {
-                    $new_input['enquiry_btn_text'] = sanitize_text_field($input['enquiry_btn_text']);
-                }
+            if (isset($input['display_on_account_page']) && !empty($input['display_on_account_page'])) {
+                $new_input['display_on_account_page'] = sanitize_text_field($input['display_on_account_page']);
+            }
 
-                // if (isset($input['btn_position_hook']) && !empty($input['btn_position_hook'])) {
-                //     $new_input['btn_position_hook'] = sanitize_text_field($input['btn_position_hook']);
-                // }
+            if (isset($input['enquiry_btn_text']) && !empty($input['enquiry_btn_text'])) {
+                $new_input['enquiry_btn_text'] = sanitize_text_field($input['enquiry_btn_text']);
+            }
 
-                if (isset($input['message_body']) && !empty($input['message_body'])) {
-                    $new_input['message_body'] = sanitize_textarea_field($input['message_body']);
-                }
+            if (isset($input['message_body']) && !empty($input['message_body'])) {
+                $new_input['message_body'] = sanitize_textarea_field($input['message_body']);
+            }
                 
             return $new_input;
-        }
-
-        
+        }        
     }
-
 }

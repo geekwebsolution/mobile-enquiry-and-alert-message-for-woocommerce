@@ -1,5 +1,4 @@
 <?php
-
 include( MMWEA_PLUGIN_DIR_PATH .'admin/setting/general-setting.php'); 
 include( MMWEA_PLUGIN_DIR_PATH .'admin/setting/single-page-setting.php'); 
 include( MMWEA_PLUGIN_DIR_PATH .'admin/setting/cart-page-setting.php'); 
@@ -132,8 +131,6 @@ if (!class_exists('mmwea_general_option_settings')) {
 
                             }
                             ?>
-
-                        
                         </div>
 
                     </div>

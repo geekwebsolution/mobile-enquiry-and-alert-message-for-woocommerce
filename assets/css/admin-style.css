@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
-
-/* @import url("https://fonts.googleapis.com/css?family=Pacifico"); */
+.mmwea-header {
+    margin-top: 20px;
+}
 
 h1.mmwea-h1 {
     color: #333;
@@ -24,7 +25,6 @@ h1.mmwea-h1 {
 }
 
 .mmwea-tabing-option form {
-    /* padding-left: 10px; */
     background-color: #dcdcde;
     padding: 40px;
     margin-right: 20px;
@@ -58,9 +58,7 @@ h1.mmwea-h1 {
     box-shadow: none;
 }
 
-
 /** CHeckbox Desgin */
-
 .mmwea-main-box .mmwea-switch {
     position: relative;
     display: inline-block;

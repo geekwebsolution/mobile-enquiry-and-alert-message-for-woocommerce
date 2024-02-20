@@ -22,7 +22,7 @@ function mmwea_order_page_front_setting(){
 
         if(isset($order_page_options) && !empty($order_page_options)){
             if (isset($order_page_options['display_on_thankyou_page']))		$display_btn    	    = $order_page_options['display_on_thankyou_page'];
-            if (isset($order_page_options['enquiry_btn_text']))		        $button_text    	    = $order_page_options['enquiry_btn_text'];
+            if (isset($order_page_options['enquiry_btn_text']))		        $button_text    	    = __($order_page_options['enquiry_btn_text'], 'mobile-enquiry-and-alert-message-for-woocommerce');
           
             if (isset($order_page_options['message_body']))		            $message_body    	    = $order_page_options['message_body'];
         }

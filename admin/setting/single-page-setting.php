@@ -30,7 +30,6 @@ if (!class_exists('mmwea_single_page_settings')) {
                 submit_button('Save Settings');
                 ?>
             </form>
-
             <?php
         }
 
@@ -166,7 +165,6 @@ if (!class_exists('mmwea_single_page_settings')) {
                 ]
             );
             /** Product and Product Category Wise Sorting End */
-
         }
 
         public function basic_setting_text_field($args){
@@ -341,11 +339,7 @@ Thank you for giving us your valuable time.";
             </select>
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
             <?php
-
         }
-
-
-
 
         public function sanitize_settings($input){
             $new_input = array();
@@ -390,8 +384,6 @@ Thank you for giving us your valuable time.";
                 
             return $new_input;
         }
-
-        
     }
 
 }

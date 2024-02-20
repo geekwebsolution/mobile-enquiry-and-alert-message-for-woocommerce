@@ -3,8 +3,8 @@
 Plugin Name: Mobile Enquiry and Alert Message for Woocommerce
 Description: Mobile Enquiry and Alert Message for Woocommerce is used to get a enquriy from user directly to your whatsapp for product, cart and order detail etc!
 Author: Geek Code Lab
-Version: 1.5
-WC tested up to: 8.3.0
+Version: 1.6
+WC tested up to: 8.6.0
 Author URI: https://geekcodelab.com/
 Text Domain : mobile-enquiry-and-alert-message-for-woocommerce
 */
@@ -18,26 +18,21 @@ if (!defined("MMWEA_PLUGIN_URL"))
     
     define("MMWEA_PLUGIN_URL", plugins_url() . '/' . basename(dirname(__FILE__)));
     
-define("mmwea_version", '1.5');
+define("mmwea_version", '1.6');
 
+/**
+ * Trigger an admin notice if WooCommerce is not installed.
+ */
 if ( ! function_exists( 'mmwea_install_woocommerce_admin_notice' ) ) {
-	/**
-	 * Trigger an admin notice if WooCommerce is not installed.
-	 */
-	function mmwea_install_woocommerce_admin_notice() {
-		?>
+	function mmwea_install_woocommerce_admin_notice() { ?>
 		<div class="error">
 			<p>
-				<?php
-				// translators: %s is the plugin name.
-				echo esc_html( sprintf( __( '%s is enabled but not effective. It requires WooCommerce in order to work.', 'mobile-enquiry-and-alert-message-for-woocommerce' ), 'Mobile Enquiry and Alert Message for Woocommerce' ) );
-				?>
+				<?php echo esc_html__( sprintf( '%s is enabled but not effective. It requires WooCommerce in order to work.', 'Mobile Enquiry and Alert Message for Woocommerce' ), 'mobile-enquiry-and-alert-message-for-woocommerce' ); ?>
 			</p>
 		</div>
 		<?php
 	}
 }
-
 
 function mmwea_woocommerce_constructor() {
     // Check WooCommerce installation
@@ -45,7 +40,6 @@ function mmwea_woocommerce_constructor() {
 		add_action( 'admin_notices', 'mmwea_install_woocommerce_admin_notice' );
 		return;
 	}
-
 }
 add_action( 'plugins_loaded', 'mmwea_woocommerce_constructor' );
 
@@ -62,10 +56,10 @@ require_once( MMWEA_PLUGIN_DIR_PATH .'/customizer/styles.php');
 
 function mmwea_plugin_add_settings_link($links){
 
-	$support_link = '<a href="https://geekcodelab.com/contact/"  target="_blank" >' . __('Support') . '</a>';
+	$support_link = '<a href="https://geekcodelab.com/contact/"  target="_blank" >' . __('Support','mobile-enquiry-and-alert-message-for-woocommerce') . '</a>';
 	array_unshift($links, $support_link);
 
-	$settings_link = '<a href="admin.php?page=mmwea-option-page">' . __('Settings') . '</a>';
+	$settings_link = '<a href="admin.php?page=mmwea-option-page">' . __('Settings','mobile-enquiry-and-alert-message-for-woocommerce') . '</a>';
 	array_unshift($links, $settings_link);
 	return $links;
 }

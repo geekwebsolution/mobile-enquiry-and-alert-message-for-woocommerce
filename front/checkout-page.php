@@ -21,7 +21,7 @@ function mmwea_checkout_page_front_setting(){
 
         if(isset($checkout_page_options) && !empty($checkout_page_options)){
             if (isset($checkout_page_options['display_checkout_page']))		$display_btn    	    = $checkout_page_options['display_checkout_page'];
-            if (isset($checkout_page_options['enquiry_btn_text']))		    $button_text    	    = $checkout_page_options['enquiry_btn_text'];
+            if (isset($checkout_page_options['enquiry_btn_text']))		    $button_text    	    = __( $checkout_page_options['enquiry_btn_text'], 'mobile-enquiry-and-alert-message-for-woocommerce' );
             if (isset($checkout_page_options['btn_position_hook']))		    $btn_position_hook    	= $checkout_page_options['btn_position_hook'];
             if (isset($checkout_page_options['body_header']))		        $body_header    	    = $checkout_page_options['body_header'];
             if (isset($checkout_page_options['message_body']))		        $message_body    	    = $checkout_page_options['message_body'];

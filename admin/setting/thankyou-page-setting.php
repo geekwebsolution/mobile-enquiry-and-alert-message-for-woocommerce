@@ -1,13 +1,9 @@
 <?php 
 if (!class_exists('mmwea_thankyou_page_settings')) {
-    
     $mmwea_product_thankyou_page_options = array();
     $mmwea_product_thankyou_page_options = get_option('mmwea_product_thankyou_page_options');
     class mmwea_thankyou_page_settings{
-
-
-        function general_setting_customize_callback(){
-          
+        function general_setting_customize_callback() {
             ?>
             <form action="options.php?tab=mmwea-thankyou-page-setting" method="post">
                 <?php  
@@ -23,8 +19,6 @@ if (!class_exists('mmwea_thankyou_page_settings')) {
                 <?php               
                 submit_button('Save Settings');
                 ?>
-
-
             </form>
             <?php
         }
@@ -32,7 +26,6 @@ if (!class_exists('mmwea_thankyou_page_settings')) {
         public function thankyou_page_setting_register_init(){
 
             register_setting('mmwea-thankyou-page-option-group', 'mmwea_product_thankyou_page_options', array($this, 'sanitize_settings'));
-
 
             add_settings_section(
                 'thankyou-page-setting-section',
@@ -64,18 +57,6 @@ if (!class_exists('mmwea_thankyou_page_settings')) {
                     'description'   => 'Change "Connect WhatsApp" button text.'
                 ]
             );
-
-            // add_settings_field(
-            //     'btn-position-thankyou-page',
-            //     __('Button Position', 'mobile-message-for-woocommerce-enquiries-and-alerts'),
-            //     array($this, 'basic_setting_btn_position_field'),
-            //     'thankyou-page-setting-page',
-            //     'thankyou-page-setting-section',
-            //     [
-            //         'label_for'     => 'btn_position_hook',
-            //         'description'   => 'demo'
-            //     ]
-            // );
 
             add_settings_field(
                 'whatsapp-message-body-thankyou-page',
@@ -177,15 +158,10 @@ Thank you for giving us your valuable time.';
                 if (isset($input['display_on_thankyou_page']) && !empty($input['display_on_thankyou_page'])) {
                     $new_input['display_on_thankyou_page'] = sanitize_text_field($input['display_on_thankyou_page']);
                 }
-
     
                 if (isset($input['enquiry_btn_text']) && !empty($input['enquiry_btn_text'])) {
                     $new_input['enquiry_btn_text'] = sanitize_text_field($input['enquiry_btn_text']);
                 }
-
-                // if (isset($input['btn_position_hook']) && !empty($input['btn_position_hook'])) {
-                //     $new_input['btn_position_hook'] = sanitize_text_field($input['btn_position_hook']);
-                // }
 
                 if (isset($input['message_body']) && !empty($input['message_body'])) {
                     $new_input['message_body'] = sanitize_textarea_field($input['message_body']);
@@ -193,8 +169,6 @@ Thank you for giving us your valuable time.';
                 
             return $new_input;
         }
-
-        
     }
 
 }

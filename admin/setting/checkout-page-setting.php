@@ -1,10 +1,9 @@
 <?php 
 if (!class_exists('mmwea_checkout_page_settings')) {
-    
+
     $mmwea_product_checkout_page_options = array();
     $mmwea_product_checkout_page_options = get_option('mmwea_product_checkout_page_options');
     class mmwea_checkout_page_settings{
-
 
         function general_setting_customize_callback(){          
             ?>
@@ -22,15 +21,12 @@ if (!class_exists('mmwea_checkout_page_settings')) {
                 <?php               
                 submit_button('Save Settings');
                 ?>
-
             </form>
             <?php
         }
 
-        public function checkout_page_setting_register_init(){
-
+        public function checkout_page_setting_register_init() {
             register_setting('mmwea-checkout-page-option-group', 'mmwea_product_checkout_page_options', array($this, 'sanitize_settings'));
-
 
             add_settings_section(
                 'checkout-page-setting-section',
@@ -220,7 +216,6 @@ if (!class_exists('mmwea_checkout_page_settings')) {
             return $new_input;
         }
 
-        
     }
 
 }

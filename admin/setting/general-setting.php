@@ -36,15 +36,12 @@ if (!class_exists('mmwea_general_settings')) {
                
                 submit_button('Save Settings');
                 ?>
-
-
             </form>
             <?php
         }
 
         public function general_setting_register_init(){
-
-
+            
             register_setting('mmwea-general-setting-options', 'mmwea_general_settings_options', array($this, 'sanitize_settings'));
 
             /** Add to cart button section start */

@@ -4,8 +4,6 @@ if (!class_exists('mmwea_cart_page_settings')) {
     $mmwea_product_cart_page_options = array();
     $mmwea_product_cart_page_options = get_option('mmwea_product_cart_page_options');
     class mmwea_cart_page_settings{
-
-
         function general_setting_customize_callback(){          
             ?>
             <form action="options.php?tab=mmwea-cart-page-setting" method="post">
@@ -107,7 +105,6 @@ if (!class_exists('mmwea_cart_page_settings')) {
         }
 
         public function basic_setting_text_field($args){
-
             global $mmwea_product_cart_page_options;
             $value = isset($mmwea_product_cart_page_options[$args['label_for']]) ? $mmwea_product_cart_page_options[$args['label_for']] : 'WhatsApp Me';
             ?>
@@ -191,50 +188,41 @@ Thank you for giving us your valuable time.';
             <p>Product Title :- {{product_name}}<br>Product Price :- {{product_price}}<br>Product SKU :- {{product_sku}}<br>Product Type :- {{product_type}}<br>Product Variations :- {{product_variations}}<br>Product URL :- {{product_url}}
             </p>
             <?php
-
         }
-
-
-
-
-
 
         public function sanitize_settings($input){
             $new_input = array();
 
+            if (isset($input['display_on_cart_page']) && !empty($input['display_on_cart_page'])) {
+                $new_input['display_on_cart_page'] = sanitize_text_field($input['display_on_cart_page']);
+            }
 
-                if (isset($input['display_on_cart_page']) && !empty($input['display_on_cart_page'])) {
-                    $new_input['display_on_cart_page'] = sanitize_text_field($input['display_on_cart_page']);
-                }
-    
-                if (isset($input['hide_checkout_btn']) && !empty($input['hide_checkout_btn'])) {
-                    $new_input['hide_checkout_btn'] = sanitize_text_field($input['hide_checkout_btn']);
-                }
-    
-                if (isset($input['enquiry_btn_text']) && !empty($input['enquiry_btn_text'])) {
-                    $new_input['enquiry_btn_text'] = sanitize_text_field($input['enquiry_btn_text']);
-                }
+            if (isset($input['hide_checkout_btn']) && !empty($input['hide_checkout_btn'])) {
+                $new_input['hide_checkout_btn'] = sanitize_text_field($input['hide_checkout_btn']);
+            }
 
-                if (isset($input['btn_position_hook']) && !empty($input['btn_position_hook'])) {
-                    $new_input['btn_position_hook'] = sanitize_text_field($input['btn_position_hook']);
-                }
+            if (isset($input['enquiry_btn_text']) && !empty($input['enquiry_btn_text'])) {
+                $new_input['enquiry_btn_text'] = sanitize_text_field($input['enquiry_btn_text']);
+            }
 
-                if (isset($input['body_header']) && !empty($input['body_header'])) {
-                    $new_input['body_header'] = sanitize_textarea_field($input['body_header']);
-                }
+            if (isset($input['btn_position_hook']) && !empty($input['btn_position_hook'])) {
+                $new_input['btn_position_hook'] = sanitize_text_field($input['btn_position_hook']);
+            }
 
-                if (isset($input['message_body']) && !empty($input['message_body'])) {
-                    $new_input['message_body'] = sanitize_textarea_field($input['message_body']);
-                }
+            if (isset($input['body_header']) && !empty($input['body_header'])) {
+                $new_input['body_header'] = sanitize_textarea_field($input['body_header']);
+            }
 
-                if (isset($input['body_footer']) && !empty($input['body_footer'])) {
-                    $new_input['body_footer'] = sanitize_textarea_field($input['body_footer']);
-                }
+            if (isset($input['message_body']) && !empty($input['message_body'])) {
+                $new_input['message_body'] = sanitize_textarea_field($input['message_body']);
+            }
+
+            if (isset($input['body_footer']) && !empty($input['body_footer'])) {
+                $new_input['body_footer'] = sanitize_textarea_field($input['body_footer']);
+            }
                 
             return $new_input;
         }
-
-        
     }
 
 }

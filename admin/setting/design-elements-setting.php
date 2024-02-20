@@ -2,13 +2,10 @@
 if (!class_exists('mmwea_design_elements_settings')) {
     $mmwea_des_ele_options = get_option('mmwea_desgin_elements_options');
 
-  
     class mmwea_design_elements_settings{
-
         public function __construct(){       
             add_action('admin_init', array($this, 'design_elements_register_settings_init'));
         }
-
 
         function general_setting_customize_callback(){ ?>
 
@@ -137,11 +134,6 @@ if (!class_exists('mmwea_design_elements_settings')) {
             );
 
             /** Customize Add to Cart Button section end */
-
-            
-        
-
-           
         }
 
         public function select_color_html($args){
@@ -200,48 +192,36 @@ if (!class_exists('mmwea_design_elements_settings')) {
             <?php
         }
 
-
-
-
         public function sanitize_settings($input)
         {
             $new_input = array();
 
-
-
             if (isset($input['whatsapp_btn_color'])) {
-
                 $new_input['whatsapp_btn_color'] = sanitize_text_field($input['whatsapp_btn_color']);
             }
 
             if (isset($input['whatsapp_btn_font_color'])) {
-
                 $new_input['whatsapp_btn_font_color'] = sanitize_text_field($input['whatsapp_btn_font_color']);
             }
 
             if (isset($input['whatsapp_btn_hover_color'])) {
-
                 $new_input['whatsapp_btn_hover_color'] = sanitize_text_field($input['whatsapp_btn_hover_color']);
             }
             
-            if (isset($input['whatsapp_btn_font_hover_color'])) {
-                
+            if (isset($input['whatsapp_btn_font_hover_color'])) {                
                 $new_input['whatsapp_btn_font_hover_color'] = sanitize_text_field($input['whatsapp_btn_font_hover_color']);
             }
 
             if (isset($input['whatsapp_btn_font_size']) && !empty($input['whatsapp_btn_font_size'])) {
-
                 $new_input['whatsapp_btn_font_size'] = sanitize_text_field($input['whatsapp_btn_font_size']);
             }
 
             if (isset($input['whatsapp_btn_font_weight']) && !empty($input['whatsapp_btn_font_weight'])) {
-
                 $new_input['whatsapp_btn_font_weight'] = sanitize_text_field($input['whatsapp_btn_font_weight']);
             }
 
 
-            if (isset($input['whatsapp_btn_border_radius']) && !empty($input['whatsapp_btn_border_radius'])) {
-                
+            if (isset($input['whatsapp_btn_border_radius']) && !empty($input['whatsapp_btn_border_radius'])) {                
                 $whatsapp_btn_border_radius = implode(",",$input['whatsapp_btn_border_radius']);
                 $new_input['whatsapp_btn_border_radius'] = sanitize_text_field($whatsapp_btn_border_radius);
             }

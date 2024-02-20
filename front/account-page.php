@@ -19,7 +19,7 @@ function mmwea_account_page_front_setting(){
 
         if(isset($account_page_options) && !empty($account_page_options)){
             if (isset($account_page_options['display_on_account_page']))		$display_btn    	    = $account_page_options['display_on_account_page'];
-            if (isset($account_page_options['enquiry_btn_text']))		        $button_text    	    = $account_page_options['enquiry_btn_text'];
+            if (isset($account_page_options['enquiry_btn_text']))		        $button_text    	    = __( $account_page_options['enquiry_btn_text'], 'mobile-enquiry-and-alert-message-for-woocommerce' );
             if (isset($account_page_options['message_body']))		            $message_body    	    = $account_page_options['message_body'];
         }
 

@@ -18,7 +18,7 @@ function mmwea_cart_page_front_setting(){
 
         if(isset($cart_page_options) && !empty($cart_page_options)){
             if (isset($cart_page_options['display_on_cart_page']))		$display_btn    	    = $cart_page_options['display_on_cart_page'];
-            if (isset($cart_page_options['enquiry_btn_text']))		    $button_text    	    = $cart_page_options['enquiry_btn_text'];
+            if (isset($cart_page_options['enquiry_btn_text']))		    $button_text    	    = __( $cart_page_options['enquiry_btn_text'], 'mobile-enquiry-and-alert-message-for-woocommerce' );
             if (isset($cart_page_options['hide_checkout_btn']))		    $hide_checkout_btn    	= $cart_page_options['hide_checkout_btn'];
             if (isset($cart_page_options['btn_position_hook']))		    $btn_position_hook    	= $cart_page_options['btn_position_hook'];
             if (isset($cart_page_options['body_header']))		        $body_header    	    = $cart_page_options['body_header'];

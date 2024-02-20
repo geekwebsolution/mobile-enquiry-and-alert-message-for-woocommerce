@@ -24,7 +24,7 @@ function mmwea_single_product_page_front(){
     
             if (isset($single_page_options['display_on_single_page']))		$display_btn    	    = $single_page_options['display_on_single_page'];
             if (isset($single_page_options['hide_cart_btn']))		        $hide_cart_button    	= $single_page_options['hide_cart_btn'];
-            if (isset($single_page_options['enquiry_btn_text']))		    $button_text    	    = $single_page_options['enquiry_btn_text'];
+            if (isset($single_page_options['enquiry_btn_text']))		    $button_text    	    = __( $single_page_options['enquiry_btn_text'], 'mobile-enquiry-and-alert-message-for-woocommerce' );
             if (isset($single_page_options['btn_position_hook']))		    $button_position    	= $single_page_options['btn_position_hook'];
             if (isset($single_page_options['message_body']))		        $send_data    	        = $single_page_options['message_body'];
 
@@ -65,6 +65,7 @@ function mmwea_single_product_page_front(){
             $product_id =  get_the_ID();
             $product    = wc_get_product( $product_id );
             $curr_pro_cat = get_the_terms ( $product_id, 'product_cat' );
+
            
             if($enable_product_wise == "on" ){
 
@@ -73,6 +74,7 @@ function mmwea_single_product_page_front(){
                 }             
        
             }
+            
             $j = 0;
             if($enable_category_wise == "on" ){
                 if(isset($curr_pro_cat) && !empty($curr_pro_cat) && !empty($select_pro_category_list) && isset($select_pro_category_list) ){
@@ -89,7 +91,7 @@ function mmwea_single_product_page_front(){
                 } 
             }               
  
-    
+            
             $btn_class  = $hide_btn_des == 'on' ? 'mmwea-for-mob' : '';
             $btn_target = $new_tab == 'on' ? 'target="_blank"' : '';    
 
@@ -110,7 +112,7 @@ function mmwea_single_product_page_front(){
 
             $i = 0;
             $replce_val = array("{{product_name}}", "{{product_price}}", "{{product_url}}", "{{product_sku}}", "{{product_type}}", "{{product_variations}}");
-
+            
 
             foreach ($msg_data as $key => $msg_value) {
 
@@ -167,7 +169,6 @@ function mmwea_single_product_page_front(){
             $new_value = array($button_url,$btn_class,$btn_target,$button_text);
             $wa_btn_html = str_replace($old_value,$new_value,$button_html);
 
-           
             if($button_position == 'woocommerce_after_single_product_summary'){
 				add_action( $button_position, function()  use ($wa_btn_html){
                     _e($wa_btn_html,'mobile-enquiry-and-alert-message-for-woocommerce');
