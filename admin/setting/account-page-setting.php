@@ -5,7 +5,7 @@ if (!class_exists('mmwea_account_page_settings')) {
     class mmwea_account_page_settings{
 
         function general_setting_customize_callback() { ?>
-            <form action="options.php?tab=mmwea-account-page-setting" method="post">
+            <form action="options.php?tab=mmwea-account-page-setting" method="post" class="mmwea-account-setting">
                 <?php  
                 settings_fields('mmwea-account-page-option-group');   
                 ?>
@@ -76,6 +76,18 @@ if (!class_exists('mmwea_account_page_settings')) {
                 ]
             );
 
+            add_settings_field(
+                'btn-shortcode-for-account-page',
+                __('Shortcode (Optional)', 'mobile-message-for-woocommerce-enquiries-and-alerts'),
+                array($this, 'basic_setting_shortcode_field'),
+                'account-page-setting-page',
+                'account-page-setting-section',
+                [
+                    'label_for'     => 'enquiry_btn_shortcode',
+                    'description'   => 'Use this shortcode to display whatsapp button for woocommerce order.'
+                ]
+            );
+
         }
 
         public function basic_setting_text_field($args){
@@ -84,6 +96,13 @@ if (!class_exists('mmwea_account_page_settings')) {
             $value = isset($mmwea_product_account_page_options[$args['label_for']]) ? $mmwea_product_account_page_options[$args['label_for']] : 'WhatsApp Me';
             ?>
             <input type="text" name="mmwea_product_account_page_options[<?php esc_attr_e( $args['label_for'] ); ?>]" id="<?php esc_attr_e( $args['label_for'] ); ?>" value="<?php esc_attr_e($value); ?>">
+            <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
+            <?php
+        }
+
+        public function basic_setting_shortcode_field($args){
+            $value = '[mmwea_my_account_wh_btn order_id="123"]'; ?>
+            <input type="text" onfocus="this.select();" readonly="readonly" value="<?php esc_attr_e($value); ?>" class="code mmwea-shortcode">
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
             <?php
         }

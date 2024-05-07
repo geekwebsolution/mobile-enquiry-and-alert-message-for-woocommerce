@@ -2,11 +2,11 @@
 Contributors: rajkakadiya, rvadhel
 Donate link: https://paypal.me/rvadhel
 Tags: wc whatsapp enquiry, order enquiry, wc whatsapp support, woocommerce whatsapp enquiry, whatsapp quick chat
-Requires PHP: 5.2.4
-Requires at least: 3.0.1
-Tested up to: 6.4.2
-WC tested up to: 8.6.0
-Stable tag: 1.6
+Requires PHP: 7.4
+Requires at least: 6.2
+Tested up to: 6.5
+WC tested up to: 8.8.2
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,11 +29,20 @@ You can select your favorite button position and also can set a dynamic message 
 == KEY FEATURES  ==
 🔹 Set the Whatsapp enquiry button on a single product page and option to hide the add-to-cart button.
 🔹 Set a Whatsapp enquiry button for a specific product and category.
+🔹 You can use shortcodes to display whatsapp button for diffrent pages. Like Single Product, Cart, Checkout, Orders
 🔹 Show Whatsapp enquiry button for the cart and checkout page and hide the checkout button on cart page.
 🔹 Option to show the Whatsapp enquiry button for order and my account page.
 🔹 Customize the button text, color, border radius, font size, font weight, and padding.
 🔹 Hide Whatsapp enquiry button on desktop and also option to open window in new tab.
 🔹 Show Whatsapp enquiry button for selected user roles.
+
+<h4>You can use shortcodes to display whatsapp button</h4>
+1. Single Product: <code>[mmwea_single_product_wh_btn product_id="123"]</code>
+1. Cart: <code>[mmwea_cart_wh_btn]</code>
+1. Checkout: <code>[mmwea_checkout_wh_btn]</code>
+1. Orders: <code>[mmwea_order_wh_btn order_id="232"]</code>
+1. My Account Orders: <code>[mmwea_my_account_wh_btn order_id="229"]</code>
+This Shortcode displays whatsapp button for diffrent pages. Like Single Product, Cart, Checkout, Orders.
 
 == Installation ==
 
@@ -55,6 +64,9 @@ After Plugin Active go to Woocommerce-> Mobile Enquiry and Alert Message for Woo
 11.Whatsapp message body for my account
 
 == Changelog ==
+= 1.6.1 =
+ Added whatsapp button shortcodes for Single Product, Cart, Checkout, Orders, and My Account Page.
+
 = 1.6 =
  Fixed bugs.
 

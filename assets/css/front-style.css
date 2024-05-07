@@ -6,9 +6,9 @@
     text-align: center;
 }
 
-.mmwea-buuton-box {
+.mmwea-button-box {
     padding: 20px 0;
-    display: inline-block;
+    /* display: inline-block; */
 }
 
 a.button.mmwea-wa-button {
