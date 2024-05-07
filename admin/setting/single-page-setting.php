@@ -111,6 +111,18 @@ if (!class_exists('mmwea_single_page_settings')) {
                 ]
             );
 
+            add_settings_field(
+                'btn-shortcode-for-single-page',
+                __('Shortcode (Optional)', 'mobile-message-for-woocommerce-enquiries-and-alerts'),
+                array($this, 'basic_setting_shortcode_field'),
+                'single-page-setting-page',
+                'single-page-setting-section',
+                [
+                    'label_for'     => 'enquiry_btn_shortcode',
+                    'description'   => 'Use this shortcode to display whatsapp button for single product. You can avoid product_id if using in single product page.'
+                ]
+            );
+
 
             /** Product and Product Category Wise Sorting Start */
             add_settings_section(
@@ -173,6 +185,13 @@ if (!class_exists('mmwea_single_page_settings')) {
             $value = isset($mmwea_product_single_page_options[$args['label_for']]) ? $mmwea_product_single_page_options[$args['label_for']] : 'WhatsApp Me';
             ?>
             <input type="text" name="mmwea_product_single_page_options[<?php esc_attr_e( $args['label_for'] ); ?>]" id="<?php esc_attr_e( $args['label_for'] ); ?>" value="<?php esc_attr_e($value); ?>">
+            <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
+            <?php
+        }
+
+        public function basic_setting_shortcode_field($args){
+            $value = '[mmwea_single_product_wh_btn product_id="123"]'; ?>
+            <input type="text" onfocus="this.select();" readonly="readonly" value="<?php esc_attr_e($value); ?>" class="code mmwea-shortcode">
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
             <?php
         }

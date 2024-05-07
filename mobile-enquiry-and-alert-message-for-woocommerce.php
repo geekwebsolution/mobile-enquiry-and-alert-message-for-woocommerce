@@ -3,8 +3,8 @@
 Plugin Name: Mobile Enquiry and Alert Message for Woocommerce
 Description: Mobile Enquiry and Alert Message for Woocommerce is used to get a enquriy from user directly to your whatsapp for product, cart and order detail etc!
 Author: Geek Code Lab
-Version: 1.6
-WC tested up to: 8.6.0
+Version: 1.6.1
+WC tested up to: 8.8.2
 Author URI: https://geekcodelab.com/
 Text Domain : mobile-enquiry-and-alert-message-for-woocommerce
 */
@@ -18,7 +18,7 @@ if (!defined("MMWEA_PLUGIN_URL"))
     
     define("MMWEA_PLUGIN_URL", plugins_url() . '/' . basename(dirname(__FILE__)));
     
-define("mmwea_version", '1.6');
+define("MMWEA_VERSION", '1.6.1');
 
 /**
  * Trigger an admin notice if WooCommerce is not installed.
@@ -69,27 +69,27 @@ add_filter("plugin_action_links_$plugin", 'mmwea_plugin_add_settings_link');
 add_action('admin_print_styles', 'mmwea_admin_style');
 function mmwea_admin_style(){
 	if (is_admin()) {
-		wp_enqueue_style('mmwea-admin-style', MMWEA_PLUGIN_URL . '/assets/css/admin-style.css' , '',mmwea_version);
-		wp_enqueue_style('mmwea-select2-style', MMWEA_PLUGIN_URL . '/assets/css/select2.min.css' , '',mmwea_version);
+		wp_enqueue_style('mmwea-admin-style', MMWEA_PLUGIN_URL . '/assets/css/admin-style.css' , '',MMWEA_VERSION);
+		wp_enqueue_style('mmwea-select2-style', MMWEA_PLUGIN_URL . '/assets/css/select2.min.css' , '',MMWEA_VERSION);
 		wp_enqueue_style('wp-color-picker');
 		wp_enqueue_script('wp-color-picker');
-		wp_enqueue_script('mmwea-admin-select2-js',MMWEA_PLUGIN_URL.'/assets/js/select2.min.js' ,array('jquery'),mmwea_version);
-		wp_enqueue_script('mmwea-admin-js',MMWEA_PLUGIN_URL.'/assets/js/admin-script.js' ,array('jquery'),mmwea_version);
+		wp_enqueue_script('mmwea-admin-select2-js',MMWEA_PLUGIN_URL.'/assets/js/select2.min.js' ,array('jquery'),MMWEA_VERSION);
+		wp_enqueue_script('mmwea-admin-js',MMWEA_PLUGIN_URL.'/assets/js/admin-script.js' ,array('jquery'),MMWEA_VERSION);
 	}
 }
 
 add_action('wp_enqueue_scripts', 'mmwea_include_front_script');
 function mmwea_include_front_script(){
-    wp_enqueue_style("mmwea_front_style", MMWEA_PLUGIN_URL . "/assets/css/front-style.css", '',mmwea_version);
-    wp_enqueue_script('mmwea_donation_script', MMWEA_PLUGIN_URL.'/assets/js/front-script.js', array('jquery'), mmwea_version);
+    wp_enqueue_style("mmwea_front_style", MMWEA_PLUGIN_URL . "/assets/css/front-style.css", '',MMWEA_VERSION);
+    wp_enqueue_script('mmwea_donation_script', MMWEA_PLUGIN_URL.'/assets/js/front-script.js', array('jquery'), MMWEA_VERSION);
 }
 
-function mmwea_get_product_category($term_id,$select_category_id){
+function mmwea_get_product_category($term_id,$select_category_id) {
 	$select_category_id = $select_category_id;
 	$args = array(
 		'parent'         => $term_id,
 		'hide_empty' => false,
-	); 
+	);
 	
 	$sub_terms = get_terms('product_cat', $args);
 	if (isset($sub_terms) && !empty($sub_terms) ) {

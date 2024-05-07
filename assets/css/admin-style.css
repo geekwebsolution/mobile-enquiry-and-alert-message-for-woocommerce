@@ -5,10 +5,11 @@
 
 h1.mmwea-h1 {
     color: #333;
-    font-family: "Pacifico", cursive;
     font-size: 28px;
     line-height: 42px;
     margin: 0 0 15px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .mmwea-section h4 {
@@ -26,7 +27,7 @@ h1.mmwea-h1 {
 
 .mmwea-tabing-option form {
     background-color: #dcdcde;
-    padding: 40px;
+    padding: 5px 20px;
     margin-right: 20px;
 }
 
@@ -141,3 +142,31 @@ h1.mmwea-h1 {
 input.mmwea-mini-input {
     width: 60px;
 }
+
+/** Shortcode field CSS */
+.mmwea-product-single-setting .mmwea-shortcode {
+    width: 400px;
+    text-align: center;
+}
+
+.mmwea-cart-setting .mmwea-shortcode {
+    width: 200px;
+    text-align: center;
+}
+
+.mmwea-checkout-setting .mmwea-shortcode {
+    width: 220px;
+    text-align: center;
+}
+
+.mmwea-order-setting .mmwea-shortcode {
+    width: 320px;
+    text-align: center;
+}
+
+.mmwea-account-setting .mmwea-shortcode {
+    width: 350px;
+    text-align: center;
+}
+
+

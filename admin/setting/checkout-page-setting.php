@@ -7,7 +7,7 @@ if (!class_exists('mmwea_checkout_page_settings')) {
 
         function general_setting_customize_callback(){          
             ?>
-            <form action="options.php?tab=mmwea-checkout-page-setting" method="post">
+            <form action="options.php?tab=mmwea-checkout-page-setting" method="post" class="mmwea-checkout-setting">
                 <?php  
                 settings_fields('mmwea-checkout-page-option-group');   
                 ?>
@@ -89,6 +89,18 @@ if (!class_exists('mmwea_checkout_page_settings')) {
                 ]
             );
 
+            add_settings_field(
+                'btn-shortcode-for-checkout-page',
+                __('Shortcode (Optional)', 'mobile-message-for-woocommerce-enquiries-and-alerts'),
+                array($this, 'basic_setting_shortcode_field'),
+                'checkout-page-setting-page',
+                'checkout-page-setting-section',
+                [
+                    'label_for'     => 'enquiry_btn_shortcode',
+                    'description'   => 'Use this shortcode to display whatsapp button for checkout.'
+                ]
+            );
+
         }
 
         public function basic_setting_text_field($args){
@@ -101,6 +113,12 @@ if (!class_exists('mmwea_checkout_page_settings')) {
             <?php
         }
 
+        public function basic_setting_shortcode_field($args){
+            $value = '[mmwea_checkout_wh_btn]'; ?>
+            <input type="text" onfocus="this.select();" readonly="readonly" value="<?php esc_attr_e($value); ?>" class="code mmwea-shortcode">
+            <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
+            <?php
+        }
 
         public function checkout_page_checkbox_field($args){
             global $mmwea_product_checkout_page_options;
