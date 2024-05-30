@@ -5,8 +5,8 @@ Tags: wc whatsapp enquiry, order enquiry, wc whatsapp support, woocommerce whats
 Requires PHP: 7.4
 Requires at least: 6.2
 Tested up to: 6.5
-WC tested up to: 8.8.2
-Stable tag: 1.6.1
+WC tested up to: 8.9.0
+Stable tag: 1.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,9 @@ After Plugin Active go to Woocommerce-> Mobile Enquiry and Alert Message for Woo
 11.Whatsapp message body for my account
 
 == Changelog ==
+= 1.6.2 =
+ Fixed selected variations bug.
+
 = 1.6.1 =
  Added whatsapp button shortcodes for Single Product, Cart, Checkout, Orders, and My Account Page.
 

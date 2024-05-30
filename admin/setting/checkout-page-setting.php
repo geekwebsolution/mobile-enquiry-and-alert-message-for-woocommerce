@@ -155,7 +155,7 @@ if (!class_exists('mmwea_checkout_page_settings')) {
             );
 
             ?>
-            <select class="js-select2-multi" name="mmwea_product_checkout_page_options[<?php esc_attr_e( $args['label_for'] ); ?>]"><?php
+            <select class="mmwea-select2-multi" name="mmwea_product_checkout_page_options[<?php esc_attr_e( $args['label_for'] ); ?>]"><?php
 
             $i =1;
             foreach ($hook_list as $key => $hooks) {

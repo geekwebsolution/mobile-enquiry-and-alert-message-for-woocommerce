@@ -1,17 +1,13 @@
 <?php
-
 if (!class_exists('mmwea_general_settings')) {
-
     $mmwea_general_settings_options = get_option('mmwea_general_settings_options');
-
     class mmwea_general_settings{
 
         public function __construct(){       
             add_action('admin_init', array($this, 'general_setting_register_init'));
         }
 
-        function general_setting_customize_callback(){
-          
+        function general_setting_customize_callback(){          
             ?>
             <form action="options.php" class="mmwea-general-setting" method="post">
                 <?php  
@@ -22,9 +18,7 @@ if (!class_exists('mmwea_general_settings')) {
                     <?php 
                     do_settings_sections('mmwea_basic_setting_input'); 
                     ?>
-                </div>
-
-              
+                </div>              
 
                 <div class="mmwea-section">
                     <?php 
@@ -33,7 +27,6 @@ if (!class_exists('mmwea_general_settings')) {
                 </div>
 
                 <?php
-               
                 submit_button('Save Settings');
                 ?>
             </form>
@@ -60,7 +53,7 @@ if (!class_exists('mmwea_general_settings')) {
                 [
                     'label_for'     => 'whatsapp_number',
                     'description'   => 'Add WhatsApp number with country code here like the example given below.',
-                    'class'         => 'wp-number-validation'
+                    'class'         => 'mmwea-number-validation'
                 ]
             );
             add_settings_field(
@@ -112,6 +105,7 @@ if (!class_exists('mmwea_general_settings')) {
                 'mmwea_user_role_setting',
                 [
                     'label_for'     => 'user_role_option',
+                    'class'     => 'mmwea_user_role_option',
                     'description'   => 'Show WhatsApp button for guests and login user.'
                 ]
             );
@@ -136,12 +130,9 @@ if (!class_exists('mmwea_general_settings')) {
                 ]
             );
             /** User Role Wise End */
-
-
         }
 
         public function basic_setting_text_field($args){
-
             global $mmwea_general_settings_options;
             $value = isset($mmwea_general_settings_options[$args['label_for']]) ? $mmwea_general_settings_options[$args['label_for']] : '';
             ?>
@@ -176,51 +167,35 @@ if (!class_exists('mmwea_general_settings')) {
         }
 
         public function basic_setting_select_field($args){
-
             global $mmwea_general_settings_options;
             global $wp_roles;
 
-            $all_roles = $wp_roles->roles;
-         
+            $all_roles = $wp_roles->roles;         
             $select_value = array();
-
             if(isset($mmwea_general_settings_options[$args['label_for']]) && !empty($mmwea_general_settings_options[$args['label_for']])){
-
                 $select_value = explode(",",$mmwea_general_settings_options[$args['label_for']] );
             }
-
-            
             ?>
-            <select name="mmwea_general_settings_options[<?php esc_attr_e( $args['label_for'] ); ?>][]" id="<?php esc_attr_e( $args['label_for'] ); ?>" class="js-select2-multi" multiple="multiple">
+            <select name="mmwea_general_settings_options[<?php esc_attr_e( $args['label_for'] ); ?>][]" id="<?php esc_attr_e( $args['label_for'] ); ?>" class="mmwea-select2-multi" multiple="multiple">
                 <?php 
                 if(!empty($all_roles) && isset($all_roles)){
-
-                    foreach ($all_roles as $key => $value) {
-    
+                    foreach ($all_roles as $key => $value) {    
                         $role = $value['name'];
-                        $key = strtolower(str_replace(" ","-",$role));
-                        ?>
-                        <option value="<?php esc_attr_e($key); ?>" <?php  if(in_array($key, $select_value)){ esc_attr_e('selected'); }  ?>  ><?php esc_attr_e($role); ?></option>
+                        $key = strtolower(str_replace(" ","-",$role)); ?>
+                            <option value="<?php esc_attr_e($key); ?>" <?php if(in_array($key, $select_value)){ esc_attr_e('selected'); }  ?>  ><?php esc_attr_e($role); ?></option>
                         <?php
                     }
-                }
-                ?>
+                } ?>
             </select>
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts-pro') ?></p>            
             <?php
-
         }
 
-
-
         public function sanitize_settings($input){
-
             $new_input = array();
-
             if (isset($input['whatsapp_number']) && !empty($input['whatsapp_number'])) {
                 $new_input['whatsapp_number'] = sanitize_text_field($input['whatsapp_number']);
             }
- 
 
             if (isset($input['hide_wa_btn_desktop']) && !empty($input['hide_wa_btn_desktop'])) {
                 $new_input['hide_wa_btn_desktop'] = sanitize_text_field($input['hide_wa_btn_desktop']);
@@ -228,8 +203,7 @@ if (!class_exists('mmwea_general_settings')) {
 
             if (isset($input['open_link_new_tab']) && !empty($input['open_link_new_tab'])) {
                 $new_input['open_link_new_tab'] = sanitize_text_field($input['open_link_new_tab']);
-            }
-            
+            }            
 
             if (isset($input['enable_user_role']) && !empty($input['enable_user_role'])) {
                 $new_input['enable_user_role'] = sanitize_text_field($input['enable_user_role']);
@@ -246,7 +220,5 @@ if (!class_exists('mmwea_general_settings')) {
 
             return $new_input;
         }
-
-
     }
 }

@@ -169,4 +169,11 @@ input.mmwea-mini-input {
     text-align: center;
 }
 
+/** Select User Roles Radio CSS */
+.mmwea_user_role_option td label:not(:first-child) {
+    padding-left: 8px;
+}
 
+.mmwea_user_role_option td label input.mmwea-radio {
+    margin-right: 8px;
+}
