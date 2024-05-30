@@ -82,21 +82,18 @@ if (!class_exists('mmwea_general_option_settings')) {
                            
                             <?php 
                             if ($tab == null) { 
-
                                 $loop  = new mmwea_general_settings();    
                                 $loop->general_setting_customize_callback();
 
                             }
                             
                             if ($tab == "mmwea-product-single-page") {
-                                
                                 $shop_page_class  = new mmwea_single_page_settings();                                
                                 $shop_page_class->general_setting_customize_callback();
 
                             }
                             
                             if ($tab == "mmwea-cart-page-setting") {
-                            
                                 $design_class  = new mmwea_cart_page_settings();
                                 $design_class->general_setting_customize_callback();
 
@@ -104,43 +101,36 @@ if (!class_exists('mmwea_general_option_settings')) {
                             
                             
                             if ($tab == "mmwea-checkout-page-setting") {
-                         
                                 $pro_des_class  = new mmwea_checkout_page_settings();
                                 $pro_des_class->general_setting_customize_callback();
 
                             }
 
                             if ($tab == "mmwea-thankyou-page-setting") {
-
                                 $thankyou_class  = new mmwea_thankyou_page_settings();
                                 $thankyou_class->general_setting_customize_callback();
 
                             }
 
                             if ($tab == "mmwea-account-page-setting") {
-
                                 $account_class  = new mmwea_account_page_settings();
                                 $account_class->general_setting_customize_callback();
 
                             }
 
                             if ($tab == "mmwea-desgin-elements-setting") {
-
                                 $account_class  = new mmwea_design_elements_settings();
                                 $account_class->general_setting_customize_callback();
 
                             }
                             ?>
                         </div>
-
                     </div>
                 </div>
             </div>
-
             <?php
         }
     }
-
 
     new mmwea_general_option_settings();
 }

@@ -74,7 +74,8 @@ function mmwea_admin_style(){
 		wp_enqueue_style('wp-color-picker');
 		wp_enqueue_script('wp-color-picker');
 		wp_enqueue_script('mmwea-admin-select2-js',MMWEA_PLUGIN_URL.'/assets/js/select2.min.js' ,array('jquery'),MMWEA_VERSION);
-		wp_enqueue_script('mmwea-admin-js',MMWEA_PLUGIN_URL.'/assets/js/admin-script.js' ,array('jquery'),MMWEA_VERSION);
+		wp_enqueue_script('mmwea-admin-js',MMWEA_PLUGIN_URL.'/assets/js/admin-script.js' ,array('jquery','mmwea-admin-select2-js'),MMWEA_VERSION);
+		wp_localize_script('mmwea-admin-js', 'mmweaObj', [ 'ajaxurl' => admin_url('admin-ajax.php') ]);
 	}
 }
 
@@ -114,4 +115,33 @@ function mmwea_before_woocommerce_init() {
     if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 	}
+}
+
+/**
+ * Ajax to search products for Single page settings
+ */
+add_action( 'wp_ajax_mmwea_product_select_ajax', 'mmwea_product_select_ajax_callback' );
+add_action( 'wp_ajax_nopriv_mmwea_product_select_ajax', 'mmwea_product_select_ajax_callback' );
+function mmwea_product_select_ajax_callback() {
+	$result = array();
+	$search = $_POST['search'];
+
+	$search_product_args = array( 'post_type' => 'product', 'post_status' => 'publish', 'posts_per_page' => -1 );
+
+	if(is_numeric($search)) {
+		$search_product_args['p'] = (int) $search;
+	}else{
+		$search_product_args['s'] = $search;
+	}
+	$mmwea_get_page = get_posts( $search_product_args );
+
+	foreach ($mmwea_get_page as $mmwea_product) {
+		$result[] = array(
+			'id' => $mmwea_product->ID,
+			'title' => $mmwea_product->post_title .  " ( #" . $mmwea_product->ID . " )"
+		);
+	}
+	echo json_encode($result);
+
+	wp_die();
 }

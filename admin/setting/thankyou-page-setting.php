@@ -3,10 +3,9 @@ if (!class_exists('mmwea_thankyou_page_settings')) {
     $mmwea_product_thankyou_page_options = array();
     $mmwea_product_thankyou_page_options = get_option('mmwea_product_thankyou_page_options');
     class mmwea_thankyou_page_settings{
-        function general_setting_customize_callback() {
-            ?>
+        function general_setting_customize_callback() { ?>
             <form action="options.php?tab=mmwea-thankyou-page-setting" method="post" class="mmwea-order-setting">
-                <?php  
+                <?php
                 settings_fields('mmwea-thankyou-page-option-group');   
                 ?>
 
@@ -23,8 +22,7 @@ if (!class_exists('mmwea_thankyou_page_settings')) {
             <?php
         }
 
-        public function thankyou_page_setting_register_init(){
-
+        public function thankyou_page_setting_register_init() {
             register_setting('mmwea-thankyou-page-option-group', 'mmwea_product_thankyou_page_options', array($this, 'sanitize_settings'));
 
             add_settings_section(
@@ -87,7 +85,6 @@ if (!class_exists('mmwea_thankyou_page_settings')) {
                     'description'   => 'Use this shortcode to display whatsapp button for woocommerce order.'
                 ]
             );
-
         }
 
         public function basic_setting_text_field($args){
@@ -105,7 +102,6 @@ if (!class_exists('mmwea_thankyou_page_settings')) {
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
             <?php
         }
-
 
         public function thankyou_page_checkbox_field($args){
             global $mmwea_product_thankyou_page_options;
@@ -167,24 +163,21 @@ Thank you for giving us your valuable time.';
             <p>Product Title :- {{product_name}}<br>Product Price :- {{product_price}}<br>Product SKU :- {{product_sku}}<br>Product Type :- {{product_type}}<br>Product Variations :- {{product_variations}}<br>Product URL :- {{product_url}}
             </p>
             <?php
-
         }
         
         public function sanitize_settings($input){
             $new_input = array();
+            if (isset($input['display_on_thankyou_page']) && !empty($input['display_on_thankyou_page'])) {
+                $new_input['display_on_thankyou_page'] = sanitize_text_field($input['display_on_thankyou_page']);
+            }
 
-                if (isset($input['display_on_thankyou_page']) && !empty($input['display_on_thankyou_page'])) {
-                    $new_input['display_on_thankyou_page'] = sanitize_text_field($input['display_on_thankyou_page']);
-                }
-    
-                if (isset($input['enquiry_btn_text']) && !empty($input['enquiry_btn_text'])) {
-                    $new_input['enquiry_btn_text'] = sanitize_text_field($input['enquiry_btn_text']);
-                }
+            if (isset($input['enquiry_btn_text']) && !empty($input['enquiry_btn_text'])) {
+                $new_input['enquiry_btn_text'] = sanitize_text_field($input['enquiry_btn_text']);
+            }
 
-                if (isset($input['message_body']) && !empty($input['message_body'])) {
-                    $new_input['message_body'] = sanitize_textarea_field($input['message_body']);
-                }
-                
+            if (isset($input['message_body']) && !empty($input['message_body'])) {
+                $new_input['message_body'] = sanitize_textarea_field($input['message_body']);
+            }                
             return $new_input;
         }
     }

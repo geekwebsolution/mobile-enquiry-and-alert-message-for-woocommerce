@@ -182,10 +182,7 @@ if (!class_exists('mmwea_design_elements_settings')) {
 
         public function font_weight_html($args){
             global $mmwea_des_ele_options;
-
             $value = isset($mmwea_des_ele_options[$args['label_for']]) ? $mmwea_des_ele_options[$args['label_for']] : '';
-
-
             ?>
             <input type="number" name="mmwea_desgin_elements_options[<?php esc_attr_e( $args['label_for'] ); ?>]" id="<?php esc_attr_e( $args['label_for'] ); ?>" min="100" max="700" step="100" value="<?php esc_attr_e($value); ?>">
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts-pro') ?></p>

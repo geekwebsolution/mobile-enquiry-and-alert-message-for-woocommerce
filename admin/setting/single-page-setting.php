@@ -1,16 +1,12 @@
 <?php 
 if (!class_exists('mmwea_single_page_settings')) {
-    
     $mmwea_product_single_page_options = array();
     $mmwea_product_single_page_options = get_option('mmwea_product_single_page_options');
 
     class mmwea_single_page_settings{
-
-        function general_setting_customize_callback(){          
-            ?>
-
+        function general_setting_customize_callback() { ?>
             <form action="options.php?tab=mmwea-product-single-page" class="mmwea-product-single-setting" method="post">
-                <?php  
+                <?php
                 settings_fields('mmwea-single-page-option-group');   
                 ?>
 
@@ -25,10 +21,7 @@ if (!class_exists('mmwea_single_page_settings')) {
                     ?>
                 </div>
 
-
-                <?php               
-                submit_button('Save Settings');
-                ?>
+                <?php submit_button('Save Settings'); ?>
             </form>
             <?php
         }
@@ -36,7 +29,6 @@ if (!class_exists('mmwea_single_page_settings')) {
         public function single_page_setting_register_init(){
 
             register_setting('mmwea-single-page-option-group', 'mmwea_product_single_page_options', array($this, 'sanitize_settings'));
-
 
             add_settings_section(
                 'single-page-setting-section',
@@ -123,7 +115,6 @@ if (!class_exists('mmwea_single_page_settings')) {
                 ]
             );
 
-
             /** Product and Product Category Wise Sorting Start */
             add_settings_section(
                 'mmwea_product_wise_setting',
@@ -179,8 +170,7 @@ if (!class_exists('mmwea_single_page_settings')) {
             /** Product and Product Category Wise Sorting End */
         }
 
-        public function basic_setting_text_field($args){
-
+        public function basic_setting_text_field($args) {
             global $mmwea_product_single_page_options;
             $value = isset($mmwea_product_single_page_options[$args['label_for']]) ? $mmwea_product_single_page_options[$args['label_for']] : 'WhatsApp Me';
             ?>
@@ -189,7 +179,7 @@ if (!class_exists('mmwea_single_page_settings')) {
             <?php
         }
 
-        public function basic_setting_shortcode_field($args){
+        public function basic_setting_shortcode_field($args) {
             $value = '[mmwea_single_product_wh_btn product_id="123"]'; ?>
             <input type="text" onfocus="this.select();" readonly="readonly" value="<?php esc_attr_e($value); ?>" class="code mmwea-shortcode">
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
@@ -197,7 +187,7 @@ if (!class_exists('mmwea_single_page_settings')) {
         }
 
 
-        public function single_page_checkbox_field($args){
+        public function single_page_checkbox_field($args) {
             global $mmwea_product_single_page_options;
             $value = isset($mmwea_product_single_page_options[$args['label_for']]) ? $mmwea_product_single_page_options[$args['label_for']] : '';
             ?>
@@ -233,20 +223,19 @@ if (!class_exists('mmwea_single_page_settings')) {
                 'woocommerce_product_thumbnails',
                 'woocommerce_after_single_product_summary',
                 'woocommerce_after_single_product',
-            );
+            ); ?>
 
-            ?>
-            <select class="js-select2-multi" name="mmwea_product_single_page_options[<?php esc_attr_e( $args['label_for'] ); ?>]"><?php
-
-            $i =1;
-            foreach ($hook_list as $key => $hooks) {
-                $no_hook = $i.". ".str_replace("_"," ",$hooks);
-                ?>
-                    <option <?php if($value == $hooks){ esc_attr_e('selected'); } ?> value="<?php esc_attr_e($hooks) ?>"><?php esc_html_e($no_hook) ?></option>
+            <select class="mmwea-select2-multi" name="mmwea_product_single_page_options[<?php esc_attr_e( $args['label_for'] ); ?>]">
                 <?php
-                $i++;
-            }
-            ?>
+                $i =1;
+                foreach ($hook_list as $key => $hooks) {
+                    $no_hook = $i.". ".str_replace("_"," ",$hooks);
+                    ?>
+                        <option <?php if($value == $hooks){ esc_attr_e('selected'); } ?> value="<?php esc_attr_e($hooks) ?>"><?php esc_html_e($no_hook) ?></option>
+                    <?php
+                    $i++;
+                }
+                ?>
             </select>
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
             <?php
@@ -272,56 +261,36 @@ Thank you for giving us your valuable time.";
             $value = isset($mmwea_product_single_page_options[$args['label_for']]) ? $mmwea_product_single_page_options[$args['label_for']] : $value;
             ?>
             <textarea name="mmwea_product_single_page_options[<?php esc_attr_e( $args['label_for'] ); ?>]"  id="" cols="80" rows="15"><?php esc_attr_e($value); ?></textarea>
-            <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
-            <h4>Product Variables</h4>
-            <p>Product Title :- {{product_name}}<br>Product Price :- {{product_price}}<br>Product SKU :- {{product_sku}}<br>Product Type :- {{product_type}}<br>Product Variations :- {{product_variations}}<br>Product URL :- {{product_url}}
-            </p>
+                <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
+                <h4>Product Variables</h4>
+                <p>Product Title :- {{product_name}}<br>Product Price :- {{product_price}}<br>Product SKU :- {{product_sku}}<br>Product Type :- {{product_type}}<br>Product Variations :- {{product_variations}}<br>Product URL :- {{product_url}}</p>
             <?php
-
         }
 
         public function basic_setting_product_list_field($args){ 
             global $mmwea_product_single_page_options;
-            $get_post_args = array(
-                'numberposts' => -1,
-                'post_type'   => 'product'
-            );
-            $all_product = get_posts( $get_post_args );
-            $select_product_id = array();
+            $select_product_ids = array();
             if(isset($mmwea_product_single_page_options[$args['label_for']]) && !empty($mmwea_product_single_page_options[$args['label_for']])){
-                $select_product_id = explode(",",$mmwea_product_single_page_options[$args['label_for']] );
+                $select_product_ids = explode(",",$mmwea_product_single_page_options[$args['label_for']] );
             }
             ?>
-           
-
-            <select class="js-select2-multi" multiple="multiple" name="mmwea_product_single_page_options[<?php esc_attr_e( $args['label_for'] ); ?>][]">
+            <select class="mmwea-select2-multi-product" multiple="multiple" name="mmwea_product_single_page_options[<?php esc_attr_e( $args['label_for'] ); ?>][]">
                 <?php 
-                if(!empty($all_product) && isset($all_product)){
-                    foreach ($all_product as $key => $product) {
-
-                        if (in_array($product->ID, $select_product_id)){
-                            ?>
-                                <option selected="selected" value="<?php echo esc_attr($product->ID) ?>"><?php echo esc_html($product->post_title); ?></option>
-                            <?php
-                        }else{
-                            ?>
-                                <option value="<?php echo esc_attr($product->ID) ?>"><?php echo esc_html($product->post_title); ?></option>
-                            <?php
-                        }
+                if(!empty($select_product_ids) && isset($select_product_ids)){
+                    foreach ($select_product_ids as $key => $product_id) { ?>
+                        <option selected="selected" value="<?php echo esc_attr($product_id) ?>"><?php echo esc_html(get_the_title($product_id)); ?></option>
+                        <?php
                     }
                 }
-                ?>
-        
+                ?>        
             </select>
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
-          
           <?php
         }
 
         public function product_category_list_field($args){
             global $mmwea_product_single_page_options;
             $select_category_id = array();
-
 
             if(isset($mmwea_product_single_page_options[$args['label_for']]) && !empty($mmwea_product_single_page_options[$args['label_for']])){
                 $select_category_id = explode(",",$mmwea_product_single_page_options[$args['label_for']] );
@@ -333,29 +302,22 @@ Thank you for giving us your valuable time.";
                 'parent'   => 0
             ) );
 
-            if ( $taxonomies ) {
-                ?>
-                <select class="js-select2-multi" multiple="multiple" name="mmwea_product_single_page_options[<?php esc_attr_e( $args['label_for'] ); ?>][]">  <?php
-
-                foreach ($taxonomies as $taxonomy) {
-
-                    if (in_array($taxonomy->term_id, $select_category_id)) {
-
-                        ?>
-                            <option value="<?php echo esc_attr($taxonomy->term_id); ?>" selected="selected" ><?php echo esc_html($taxonomy->name); ?></option>
-                        <?php
-                    } else {
-
-                        ?>
-                            <option value="<?php echo esc_attr($taxonomy->term_id); ?>"><?php echo esc_html($taxonomy->name); ?></option>
-                        <?php
-                    }
-
-                    mmwea_get_product_category($taxonomy->term_id, $select_category_id);
-                }
-            } 
-            ?>
-            </select>
+            if ( $taxonomies ) { ?>
+                <select class="mmwea-select2-multi" multiple="multiple" name="mmwea_product_single_page_options[<?php esc_attr_e( $args['label_for'] ); ?>][]"> 
+                    <?php
+                    foreach ($taxonomies as $taxonomy) {
+                        if (in_array($taxonomy->term_id, $select_category_id)) { ?>
+                                <option value="<?php echo esc_attr($taxonomy->term_id); ?>" selected="selected" ><?php echo esc_html($taxonomy->name); ?></option>
+                            <?php
+                        } else { ?>
+                                <option value="<?php echo esc_attr($taxonomy->term_id); ?>"><?php echo esc_html($taxonomy->name); ?></option>
+                            <?php
+                        }
+                        mmwea_get_product_category($taxonomy->term_id, $select_category_id);
+                    } ?>
+                </select>
+                <?php
+            } ?>
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts') ?></p>
             <?php
         }
@@ -363,46 +325,45 @@ Thank you for giving us your valuable time.";
         public function sanitize_settings($input){
             $new_input = array();
 
-                if (isset($input['display_on_single_page']) && !empty($input['display_on_single_page'])) {
-                    $new_input['display_on_single_page'] = sanitize_text_field($input['display_on_single_page']);
-                }
-    
-                if (isset($input['hide_cart_btn']) && !empty($input['hide_cart_btn'])) {
-                    $new_input['hide_cart_btn'] = sanitize_text_field($input['hide_cart_btn']);
-                }
-    
-                if (isset($input['enquiry_btn_text']) && !empty($input['enquiry_btn_text'])) {
-                    $new_input['enquiry_btn_text'] = sanitize_text_field($input['enquiry_btn_text']);
-                }
+            if (isset($input['display_on_single_page']) && !empty($input['display_on_single_page'])) {
+                $new_input['display_on_single_page'] = sanitize_text_field($input['display_on_single_page']);
+            }
 
-                if (isset($input['btn_position_hook']) && !empty($input['btn_position_hook'])) {
-                    $new_input['btn_position_hook'] = sanitize_text_field($input['btn_position_hook']);
-                }
+            if (isset($input['hide_cart_btn']) && !empty($input['hide_cart_btn'])) {
+                $new_input['hide_cart_btn'] = sanitize_text_field($input['hide_cart_btn']);
+            }
 
-                if (isset($input['message_body']) && !empty($input['message_body'])) {
-                    $new_input['message_body'] = sanitize_textarea_field($input['message_body']);
-                }
+            if (isset($input['enquiry_btn_text']) && !empty($input['enquiry_btn_text'])) {
+                $new_input['enquiry_btn_text'] = sanitize_text_field($input['enquiry_btn_text']);
+            }
 
-                if (isset($input['enable_product_wise']) && !empty($input['enable_product_wise'])) {
-                    $new_input['enable_product_wise'] = sanitize_text_field($input['enable_product_wise']);
-                }
-    
-                if (isset($input['select_product_list']) && !empty($input['select_product_list'])) {
-                    $product_list = implode(",",$input['select_product_list']);
-                    $new_input['select_product_list'] = sanitize_text_field($product_list);
-                }
+            if (isset($input['btn_position_hook']) && !empty($input['btn_position_hook'])) {
+                $new_input['btn_position_hook'] = sanitize_text_field($input['btn_position_hook']);
+            }
 
-                if (isset($input['enable_category_wise']) && !empty($input['enable_category_wise'])) {
-                    $new_input['enable_category_wise'] = sanitize_text_field($input['enable_category_wise']);
-                }
-    
-                if (isset($input['select_pro_category_list']) && !empty($input['select_pro_category_list'])) {
-                    $category_list = implode(",",$input['select_pro_category_list']);
-                    $new_input['select_pro_category_list'] = sanitize_text_field($category_list);
-                }
+            if (isset($input['message_body']) && !empty($input['message_body'])) {
+                $new_input['message_body'] = sanitize_textarea_field($input['message_body']);
+            }
+
+            if (isset($input['enable_product_wise']) && !empty($input['enable_product_wise'])) {
+                $new_input['enable_product_wise'] = sanitize_text_field($input['enable_product_wise']);
+            }
+
+            if (isset($input['select_product_list']) && !empty($input['select_product_list'])) {
+                $product_list = implode(",",$input['select_product_list']);
+                $new_input['select_product_list'] = sanitize_text_field($product_list);
+            }
+
+            if (isset($input['enable_category_wise']) && !empty($input['enable_category_wise'])) {
+                $new_input['enable_category_wise'] = sanitize_text_field($input['enable_category_wise']);
+            }
+
+            if (isset($input['select_pro_category_list']) && !empty($input['select_pro_category_list'])) {
+                $category_list = implode(",",$input['select_pro_category_list']);
+                $new_input['select_pro_category_list'] = sanitize_text_field($category_list);
+            }
                 
             return $new_input;
         }
     }
-
 }
