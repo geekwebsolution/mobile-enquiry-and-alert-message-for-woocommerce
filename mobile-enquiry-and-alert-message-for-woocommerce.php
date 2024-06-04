@@ -3,7 +3,7 @@
 Plugin Name: Mobile Enquiry and Alert Message for Woocommerce
 Description: Mobile Enquiry and Alert Message for Woocommerce is used to get a enquriy from user directly to your whatsapp for product, cart and order detail etc!
 Author: Geek Code Lab
-Version: 1.6.2
+Version: 1.6.3
 WC tested up to: 8.9.0
 Author URI: https://geekcodelab.com/
 Text Domain : mobile-enquiry-and-alert-message-for-woocommerce
@@ -18,7 +18,7 @@ if (!defined("MMWEA_PLUGIN_URL"))
     
     define("MMWEA_PLUGIN_URL", plugins_url() . '/' . basename(dirname(__FILE__)));
     
-define("MMWEA_VERSION", '1.6.2');
+define("MMWEA_VERSION", '1.6.3');
 
 /**
  * Trigger an admin notice if WooCommerce is not installed.
@@ -145,3 +145,24 @@ function mmwea_product_select_ajax_callback() {
 
 	wp_die();
 }
+
+/**
+ * Pushing sale countdown of product inside `woocommerce_available_variation`
+ */
+function mmwea_rewrite_wc_available_variation( $default, $class, $variation ) {
+	$product_id = $variation->get_id();	
+	$variation = new WC_Product_Variation($product_id);
+	$variations = $variation->get_variation_attributes();
+
+	$selected = [];
+	foreach ($variations as $key => $value) {
+		$attribute_name = preg_replace('/^attribute_/', '', $key);
+		$selected[] = ucwords(wc_attribute_label($attribute_name)) . ':- ' . ucwords($value);
+	}
+
+	// Pushing the initial price [if WC_Product class initialized]
+	$default['mmwea_selected_variation'] = json_encode($selected);
+
+	return apply_filters( 'mmwea_woocommerce_available_variation', $default, $class, $variation );
+}
+add_filter( 'woocommerce_available_variation', 'mmwea_rewrite_wc_available_variation', 99, 3 );
