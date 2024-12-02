@@ -3,7 +3,7 @@
 Plugin Name: Mobile Enquiry and Alert Message for Woocommerce
 Description: Mobile Enquiry and Alert Message for Woocommerce is used to get a enquriy from user directly to your whatsapp for product, cart and order detail etc!
 Author: Geek Code Lab
-Version: 1.6.3
+Version: 1.7.0
 WC tested up to: 8.9.0
 Author URI: https://geekcodelab.com/
 Text Domain : mobile-enquiry-and-alert-message-for-woocommerce
@@ -11,14 +11,22 @@ Text Domain : mobile-enquiry-and-alert-message-for-woocommerce
 if (!defined('ABSPATH')) exit;
 
 if (!defined("MMWEA_PLUGIN_DIR_PATH"))
-
 	define("MMWEA_PLUGIN_DIR_PATH", plugin_dir_path(__FILE__));
 
 if (!defined("MMWEA_PLUGIN_URL"))
-    
     define("MMWEA_PLUGIN_URL", plugins_url() . '/' . basename(dirname(__FILE__)));
-    
-define("MMWEA_VERSION", '1.6.3');
+
+if (!defined("MMWEA_PLUGIN_BASENAME"))
+	define("MMWEA_PLUGIN_BASENAME", plugin_basename(__FILE__));
+
+if (!defined("MMWEA_PLUGIN_DIR"))
+	define("MMWEA_PLUGIN_DIR", plugin_basename(__DIR__));
+
+define("MMWEA_VERSION", '1.7.0');
+
+require(MMWEA_PLUGIN_DIR_PATH . 'updater/updater.php');
+add_action('upgrader_process_complete', 'mmwea_updater_activate'); // remove  transient  on plugin  update
+
 
 /**
  * Trigger an admin notice if WooCommerce is not installed.
