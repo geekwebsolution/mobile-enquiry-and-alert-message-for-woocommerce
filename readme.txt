@@ -64,6 +64,11 @@ After Plugin Active go to Woocommerce-> Mobile Enquiry and Alert Message for Woo
 11.Whatsapp message body for my account
 
 == Changelog ==
+
+= 1.7.0 =
+ Fix Bug
+ Added auto updated function
+
 = 1.6.3 =
  Fixed selected variations bug with external woocommerce addons.
 
