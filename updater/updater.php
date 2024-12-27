@@ -19,7 +19,6 @@ function mmwea_updater_utility() {
     return $settings;
 }
 
-register_activation_hook(__FILE__, 'mmwea_updater_activate');
 function mmwea_updater_activate() {
 
     // Refresh transients

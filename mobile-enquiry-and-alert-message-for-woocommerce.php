@@ -25,6 +25,7 @@ if (!defined("MMWEA_PLUGIN_DIR"))
 define("MMWEA_VERSION", '1.7.0');
 
 require(MMWEA_PLUGIN_DIR_PATH . 'updater/updater.php');
+register_activation_hook(__FILE__, 'mmwea_updater_activate');
 add_action('upgrader_process_complete', 'mmwea_updater_activate'); // remove  transient  on plugin  update
 
 
