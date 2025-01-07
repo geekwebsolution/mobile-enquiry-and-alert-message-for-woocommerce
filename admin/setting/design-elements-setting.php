@@ -172,10 +172,10 @@ if (!class_exists('mmwea_design_elements_settings')) {
 
 
             ?>
-            <input type="number" class="mmwea-mini-input" name="mmwea_desgin_elements_options[<?php esc_attr_e( $args['label_for'] ); ?>]"  value="<?php esc_attr_e($top_value); ?>">
-            <input type="number" class="mmwea-mini-input" name="mmwea_desgin_elements_options[<?php esc_attr_e( $args['label_for'] ); ?>]"  value="<?php esc_attr_e($right_value); ?>">
-            <input type="number" class="mmwea-mini-input" name="mmwea_desgin_elements_options[<?php esc_attr_e( $args['label_for'] ); ?>]"  value="<?php esc_attr_e($bottom_value); ?>">
-            <input type="number" class="mmwea-mini-input" name="mmwea_desgin_elements_options[<?php esc_attr_e( $args['label_for'] ); ?>]"  value="<?php esc_attr_e($left_value); ?>">
+            <input type="number" class="mmwea-mini-input" name="mmwea_desgin_elements_options[<?php esc_attr_e( $args['label_for'] ); ?>][]"  value="<?php esc_attr_e($top_value); ?>">
+            <input type="number" class="mmwea-mini-input" name="mmwea_desgin_elements_options[<?php esc_attr_e( $args['label_for'] ); ?>][]"  value="<?php esc_attr_e($right_value); ?>">
+            <input type="number" class="mmwea-mini-input" name="mmwea_desgin_elements_options[<?php esc_attr_e( $args['label_for'] ); ?>][]"  value="<?php esc_attr_e($bottom_value); ?>">
+            <input type="number" class="mmwea-mini-input" name="mmwea_desgin_elements_options[<?php esc_attr_e( $args['label_for'] ); ?>][]"  value="<?php esc_attr_e($left_value); ?>">
             <p class="mmwea-input-note"><?php _e($args['description'],'mobile-message-for-woocommerce-enquiries-and-alerts-pro') ?></p>
             <?php
         }
@@ -233,3 +233,4 @@ if (!class_exists('mmwea_design_elements_settings')) {
     }
 
 }
+
