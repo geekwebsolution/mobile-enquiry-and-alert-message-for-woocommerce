@@ -6,6 +6,7 @@ Author: Geek Code Lab
 Version: 1.7.0
 WC tested up to: 8.9.0
 Author URI: https://geekcodelab.com/
+Requires Plugins: woocommerce
 Text Domain : mobile-enquiry-and-alert-message-for-woocommerce
 */
 if (!defined('ABSPATH')) exit;

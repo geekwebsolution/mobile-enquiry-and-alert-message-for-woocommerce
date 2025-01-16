@@ -7,7 +7,8 @@ function whatsapp_inquiry_dynamic_render_callback( $block_attributes, $content )
 
     $general_settings_options = get_option('mmwea_general_settings_options');
     $whatsapp_number = isset($general_settings_options['whatsapp_number']) ? $general_settings_options['whatsapp_number'] : '';
-    
+    $message_body= "";
+    $button_text= "Inquiry via WhatsApp";
     if(is_cart()){
         $cart_page_options = get_option('mmwea_product_cart_page_options');
 
@@ -46,35 +47,28 @@ function whatsapp_inquiry_register_block() {
 add_action( 'init', 'whatsapp_inquiry_register_block' );
 
 
+function get_cart_data_ajax() {
+    if ( WC()->cart ) {
+        $cart_data = array();
+        $cart_items = WC()->cart->get_cart();
 
-function localize_cart_data() {
-    if ( class_exists( 'WooCommerce' ) ) {
+        foreach ( $cart_items as $item_key => $item ) {
+            $product = $item['data'];
+            $product_data = array(
+                'title' => $product->get_title(),
+                'url'   => get_permalink( $product->get_id() ),
+            );
 
-        wp_enqueue_script(
-            'whatsapp-inquiry-block-editor',
-            plugin_dir_url( __FILE__ ) . '/block.js',
-            filemtime( plugin_dir_path( __FILE__ ) . '/block.js' ),
-            true 
-        );
-
-        if ( is_cart() || is_checkout() ) {
-            if ( WC()->cart ) {
-                $cart_data = array();
-                $cart_items = WC()->cart->get_cart();
-
-                foreach ( $cart_items as $item_key => $item ) {
-                    $product = $item['data'];
-                    $cart_data[] = array(
-                        'title' => $product->get_title(),
-                        'url'   => get_permalink( $product->get_id() ),
-                    );
-                }
-                wp_localize_script( 'whatsapp-inquiry-block-editor', 'wcCartData', array(
-                    'cartItems' => $cart_data,
-                ));
-            }
+            // Apply a filter to allow customization of product data
+            $cart_data[] = apply_filters( 'mmwea_customize_cart_item_data', $product_data, $item);
         }
-        
+
+        wp_send_json_success( array( 'cartItems' => $cart_data ) );
+    } else {
+        wp_send_json_error( array( 'message' => 'Cart is empty.' ) );
     }
+
+    wp_die();
 }
-add_action( 'enqueue_block_assets', 'localize_cart_data' );
+add_action( 'wp_ajax_get_cart_data', 'get_cart_data_ajax' );
+add_action( 'wp_ajax_nopriv_get_cart_data', 'get_cart_data_ajax' );
